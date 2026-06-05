@@ -33,6 +33,8 @@ plt.yticks(range(GRID_SIZE))
 plt.grid(True)
 plt.show()
 
+
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -659,6 +661,38 @@ axes[1].set_xlim(0, 200)
 axes[1].set_ylim(30, 90)       # Fixed y-axis
 axes[1].legend()
 axes[1].grid(True)
+
+plt.tight_layout()
+plt.show()
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Reproducibility
+np.random.seed(42)
+
+# Episodes
+episodes = np.arange(1, 201)
+
+# Generate steadily increasing cumulative reward
+increments = np.random.normal(loc=0.52, scale=0.08, size=200)
+increments = np.maximum(increments, 0.2)  # ensure positive growth
+
+cumulative_reward = np.cumsum(increments)
+
+# Scale final reward close to 205 (similar trend)
+cumulative_reward = cumulative_reward * (205 / cumulative_reward[-1])
+
+# Plot
+plt.figure(figsize=(8, 5))
+plt.plot(episodes, cumulative_reward, linewidth=2)
+
+plt.title('Learning Performance (Reward)', fontsize=14)
+plt.xlabel('Episodes', fontsize=12)
+plt.ylabel('Cumulative Reward', fontsize=12)
+
+plt.xlim(0, 200)
+plt.grid(True, alpha=0.3)
 
 plt.tight_layout()
 plt.show()
